@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     
-    fetch('https://moveo-backend.vercel.app:3000/api/get-codeblocks')
+    fetch('https://movero-backend-express-production.up.railway.app/api/code-blocks')
     .then(response => response.json())
     .then(data => {
     setCodeBlocks(data); // directly set the state with the data
