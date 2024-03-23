@@ -1,37 +1,40 @@
 .lobby {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .lobby h2 {
-    margin-bottom: 20px;
-  }
-  
-  .lobby ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .lobby li {
-    margin-bottom: 10px;
-    border: 1px solid #000; /* Add a border */
-    border-radius: 10px; /* Add curved edges */
-    padding: 10px; /* Add some space inside the rectangle */
-    background-color: white; /* Initial background color */
-    transition: background-color 0.3s ease; /* Transition property */
-  }
-  .lobby li:active {
-    background-color: grey; /* Background color when clicked */
-  }
-  
-  .lobby a {
-    text-decoration: none;
-    color: #000;
-  }
-  
-  .lobby a:hover {
-    color: #333;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+.lobby h2 {
+  margin-bottom: 2rem;
+}
+
+.lobby ul {
+  list-style: none;
+  padding: 0;
+}
+
+.lobby li {
+  margin-bottom: 1rem;
+  border: 1px solid var(--main-color);
+  border-radius: 1rem;
+  padding: 1rem;
+  background-color: var(--background-color);
+  transition: background-color var(--transition-speed) ease;
+}
+
+.lobby li:active,
+.lobby li:hover,
+.lobby li:focus {
+  background-color: var(--active-color);
+}
+
+.lobby a {
+  text-decoration: none;
+  color: var(--main-color);
+}
+
+.lobby a:hover,
+.lobby a:focus {
+  color: var(--hover-color);
+}

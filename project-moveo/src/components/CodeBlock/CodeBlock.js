@@ -1,50 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Editor from './Editor';
+import Editor from '../Editor/Editor';
 import './CodeBlock.css';
 import { useNavigate } from 'react-router-dom';
 import {socket}  from '../../services/webSocket';
 
 
 const CodeBlock = ({ codeBlocks}) => {
-  const [isCorrect, setIsCorrect] = useState(false);
   const { id } = useParams();
   const [selectedBlock, setSelectedBlock] = useState(null);
-  const [editedCode, setEditedCode] = useState('');
   const navigate = useNavigate();
 
-
+  // Update the selectedBlock state variable when codeBlocks or id changes
   useEffect(() => {
     if (codeBlocks.length > 0) {
       const block = codeBlocks.find((b) => b.title === id);
-
       setSelectedBlock(block);
-      setEditedCode(block.code);
     }
   }, [codeBlocks, id]);
 
-
-  const handleCodeChange = (newCode) => {
-    setEditedCode(newCode);
-    compareCode();
-  };
-
+  // Show a loading message if selectedBlock is not defined
   if (!selectedBlock) {
     return <div>Loading...</div>;
   }
-
   const { title } = selectedBlock;
 
-  const compareCode = () => {
-    const correct = editedCode.trim() === selectedBlock.corectCode.trim();
-    setIsCorrect(correct);
-    if (correct) {
-      setTimeout(() => setIsCorrect(false), 3000);
-      console.log('Correct!');
-    } else {
-      console.log('Incorrect!');
-    }
-  };
+  // Function to go back to the previous page
   const goBack = () => {
     if (socket) {
       socket.close();
@@ -55,10 +36,8 @@ const CodeBlock = ({ codeBlocks}) => {
   return (
     <div className="codeblock">
     <h2>{title}</h2>
-    <Editor code={editedCode} onChange={handleCodeChange}/>
-    <button onClick={goBack}>Back</button>
-
-    {isCorrect && <div className="correct">😊</div>}
+    <Editor code={selectedBlock}/>
+    <button className="button" onClick={goBack}>Back</button>
   </div>
   );
 };

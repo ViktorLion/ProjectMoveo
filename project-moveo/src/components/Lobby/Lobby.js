@@ -6,30 +6,14 @@ import { openSocket, socket } from '../../services/webSocket';
 
 
 const Lobby = ({ codeBlocks, isLoading }) => {
-  
+
+  // Close the WebSocket connection if Lobby component is exited 
+  if (socket) {
+    socket.close();
+  }
+  // Define a function to handle clicking on a block
   const onBlockClick = (block) => {
-    console.log('Block clicked:', block.id);
-    openSocket(block.id);
-
-     // Open the WebSocket connection
-
-    socket.addEventListener('message', (event) => {
-      if (event.data instanceof Blob) {
-        const reader = new FileReader();
-        reader.onload = function() {
-          const message = JSON.parse(this.result);
-          if (message.type === 'role_response') {
-            //console.log('Received role:', message.role);
-          }
-        };
-        reader.readAsText(event.data);
-      } else {
-        const message = JSON.parse(event.data);
-        if (message.type === 'role_response') {
-          //console.log('Received role:', message.role);
-        }
-      }
-    });
+    openSocket(block.id); 
   };
 
   return (
@@ -39,7 +23,7 @@ const Lobby = ({ codeBlocks, isLoading }) => {
         <p>Loading code blocks...</p>
       ) : (
         <ul>
-          {codeBlocks?.length === 0 ? ( // Check if array is empty or undefined
+          {codeBlocks?.length === 0 ? ( 
             <p>No code blocks found.</p>
           ) : (
             codeBlocks.map((block) => (
@@ -51,7 +35,7 @@ const Lobby = ({ codeBlocks, isLoading }) => {
         </ul>
       )}
     </div>
-  );
+  )
 };
 
 export default Lobby;
