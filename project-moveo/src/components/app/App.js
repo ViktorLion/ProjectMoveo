@@ -11,6 +11,8 @@ function App() {
 
   useEffect(() => {
     
+    // Fetch the code blocks from the backend
+    // change to http://localhost:3010/api/code-blocks for local development
     fetch('https://movero-backend-express-production.up.railway.app/api/code-blocks')
     .then(response => response.json())
     .then(data => {
